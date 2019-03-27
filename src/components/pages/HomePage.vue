@@ -46,8 +46,8 @@ export default {
 		}
 	},
 	components : {
-		banner :require('./Banner.vue').default,
-		footers :require('./Footer.vue').default,
+		banner :require('../common/Banner.vue').default,
+		footers :require('../common/Footer.vue').default,
 	},
 	methods:{
 		mainenter(num){
@@ -61,12 +61,12 @@ export default {
 </script>
 
 <style lang="scss">
-.bd-container{width: 100%;background: url(../assets/part-two-bg.jpg) no-repeat;background-size: 100% 100%;padding-top: 30px;}
+.bd-container{width: 100%;background: url(../../assets/part-two-bg.jpg) no-repeat;background-size: 100% 100%;padding-top: 30px;}
 .card-main{width: 100%;height: 200px;display: flex;flex-wrap: nowrap;align-items:center;justify-content: center;}
 .main-holder{width: 25%;height: 180px;box-sizing: border-box;border-right: 1px solid #e5e5e5;}
 .main-holder:last-child{border-right: none;}
 .card-info{width: 1200px;margin: 0 auto;background: #fff;padding: 30px;box-sizing: border-box;}
-.main-pt,.main-cp,.main-sf,.main-jz{width: 62px;height: 62px;margin: 0 auto;background: url(../assets/bg.png) no-repeat;
+.main-pt,.main-cp,.main-sf,.main-jz{width: 62px;height: 62px;margin: 0 auto;background: url(../../assets/bg.png) no-repeat;
 	background-position: 0 0;margin-top: 31.5px;transition: all .4s;position: relative;}
 .main-cp{background-position: -186px 0}
 .main-sf{background-position: -62px 0}

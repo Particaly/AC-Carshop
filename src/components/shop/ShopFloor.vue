@@ -25,7 +25,7 @@
 		'name':'shopfloor',
 		components:{
 			shopfloordetail:require('./ShopFloorDetail.vue').default,
-			footers :require('../Footer.vue').default,
+			footers :require('../common/Footer.vue').default,
 		},
 		data:function(){
 			return {

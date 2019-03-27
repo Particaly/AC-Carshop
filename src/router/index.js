@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Header from '@/components/Header';
-import Home from '@/components/HomePage';
-import Shop from '@/components/Shop';
+import Header from '@/components/common/Header';
+import Home from '@/components/pages/HomePage';
+import Shop from '@/components/pages/Shop';
 
 Vue.use(Router)
 

@@ -30,7 +30,7 @@
 	export default {
 		name:'shopbanner',
 		components:{
-			Carousel:require('../Carousel.vue').default
+			Carousel:require('../common/Carousel.vue').default
 		},
 		data:function(){
 			return {

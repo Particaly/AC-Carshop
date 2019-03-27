@@ -77,7 +77,7 @@ export default {
 .banner{
 	height: 530px;
 	width: 100%;
-	background: url(../assets/banner-bg.jpg) no-repeat center;
+	background: url(../../assets/banner-bg.jpg) no-repeat center;
 	background-size: 100% 100%;
 	position: relative;
 	.bannercontainer{
@@ -91,7 +91,7 @@ export default {
 		.bannerleft{
 			width: 360px;
 			height: 500px;
-			background: url(../assets/user-f-bg-01.jpg);background-size: 100% 100%;
+			background: url(../../assets/user-f-bg-01.jpg);background-size: 100% 100%;
 			position: relative;
 			top: 30px;
 			left: 0px;
@@ -160,16 +160,16 @@ export default {
 			display: flex;
 			flex-warp:nowarp;
 			div{height: 130px;width: 33.33%;}
-			.img1{background: url(../assets/b1.jpg) center;}
-			.img2{background: url(../assets/b2.jpg) center;}
-			.img3{background: url(../assets/b3.jpg) center;}
+			.img1{background: url(../../assets/b1.jpg) center;}
+			.img2{background: url(../../assets/b2.jpg) center;}
+			.img3{background: url(../../assets/b3.jpg) center;}
 		}
 	}
 }
 .wave-roll-area {position: absolute;z-index: 0;bottom: 0;left: 0;width: 100%;height: 120px;overflow: hidden;}
 .wave-roll-area ul{position:absolute;left:0;bottom:0;width:6000px;margin: 0;padding: 0;}
 .wave-box{width: 100%;height: 120px;}
-.wave-bg1,.wave-bg2,.wave-bg3{width:100%;height:120px;position:absolute;bottom:0;z-index:1;background:url(../assets/a1.png);animation-name: transforms;
+.wave-bg1,.wave-bg2,.wave-bg3{width:100%;height:120px;position:absolute;bottom:0;z-index:1;background:url(../../assets/a1.png);animation-name: transforms;
         animation-timing-function: linear;animation-duration:80s;animation-iteration-count: infinite;}
 .wave-bg2{animation-duration:110s;}
 .wave-bg3{animation-duration:50s;}

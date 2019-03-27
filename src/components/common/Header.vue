@@ -75,7 +75,7 @@
 			.logo{
 				width: 240px;
 				height: 80px;
-				background: url(../assets/logo.png) no-repeat center;
+				background: url(../../assets/logo.png) no-repeat center;
 			}
 			.headnavs{
 				width: 600px;
