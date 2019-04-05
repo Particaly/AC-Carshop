@@ -38,11 +38,17 @@
 			this.getFloorName()
 			window.addEventListener('scroll', this.handleScroll, true); 
 		},
+		beforeDestroy(){
+			window.removeEventListener("scroll",this.handleScroll)
+		},
 		methods:{
 			handleScroll(){
 	            // 页面滚动距顶部距离
 	            var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-	         	var x = document.querySelectorAll(".floor-container>div")[0].getBoundingClientRect().top
+	         	var x = document.querySelectorAll(".floor-container>div")[0]
+	         	if(x){
+	         		x=x.getBoundingClientRect().top
+	         	}else{return}
 	         	if(x>160){
 	         		this.navOpacity=false;
 	         		this.isMouseOnFloor=false;

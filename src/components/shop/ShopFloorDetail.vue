@@ -45,7 +45,6 @@
 		methods:{
 			getFloorData(){
 				var that = this;
-				console.log(that)
 				that.__proto__.__proto__.axios.post("/getFullFloorData",{'请求数据':that.name.name}).then(function(res){
 					if(typeof(res.data)=='object'&&res.status==200){
 						that.dataBox=res.data;
