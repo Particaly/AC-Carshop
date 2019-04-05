@@ -25,7 +25,7 @@ export default new Router({
     		'header':Header,
     		'body':Shop
     	}
-    }
+    },
     {
     	path: '/login',
     	name: 'login',
