@@ -20,7 +20,10 @@
 		color: #2c3e50;
 		margin-top: 60px;
 	}
-	
+  .tips{
+    top: 75%;
+    min-width: 200px;
+  }
 	html,
 	body,
 	#app {
