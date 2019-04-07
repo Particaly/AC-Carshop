@@ -5,7 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import Header from '@/components/common/Header';
 import Home from '@/components/pages/HomePage';
 import Shop from '@/components/pages/Shop';
-import Login from '@/components/pages/Login';
+import logandreg from '@/components/pages/LogOrReg';
 
 Vue.use(Router)
 Vue.use(ElementUI);
@@ -30,11 +30,11 @@ export default new Router({
     	}
     },
     {
-    	path: '/login',
+    	path: '/login*',
     	name: 'login',
     	components:{
     		'header':Header,
-    		'body':Login
+    		'body':logandreg
     	}
     }
   ]

@@ -22,9 +22,9 @@
           <div class="registerbox" v-if="flagOfRegOrLog=='reg'">
             <div class="box-container">
               <div class="box-title">快速注册</div>
-              <el-input v-model="userIdReg" class="inp" placeholder="请输入用户名/手机号/邮箱"></el-input>
+              <el-input v-model="userIdReg" class="inp" placeholder="请输入手机号"></el-input>
               <el-input v-model="userPSWReg" style="margin-top: 20px" class="inp" placeholder="请输入密码" show-password=""></el-input>
-              <el-button type="primary" style="width: 100%;height: 60px;margin-top: 20px;font-size: 18px;letter-spacing:2px">立即注册</el-button>
+              <el-button @click="Register" :loading="isRegisterLoading" type="primary" style="width: 100%;height: 60px;margin-top: 20px;font-size: 18px;letter-spacing:2px">立即注册</el-button>
               <div class="otherLoginType">
                 <div class="loginByQQ"></div>
                 <div class="loginByWX"></div>
@@ -60,7 +60,7 @@
 
 <script>
 	export default{
-		name:"login",
+		name:"logandreg",
     data:function () {
       return{
         btnData:"还没有账号？去注册！",
@@ -69,13 +69,54 @@
         userPSW:'',
         userIdReg:'',
         userPSWReg:'',
-        isLoginLoading:false
+        isLoginLoading:false,
+        isRegisterLoading:false
       }
     },
     mounted(){
-
+      if(this.$route.fullPath.indexOf("reg")!=-1){
+        this.flagOfRegOrLog='reg'
+      }
+    },
+    beforeRouteEnter (to, from, next) {
+      next(vm => vm.setRoute(from))
     },
     methods:{
+      setRoute (route) {
+        this.lastRoute=route;
+      },
+      Register(){
+        let that = this;
+        that.isRegisterLoading=true;
+        if(!that.userId){
+          that.$message({
+            'type':'error',
+            'message':'请输入账号',
+            'duration':'5000',
+            'customClass':'tips'
+          });
+          that.isRegisterLoading=false;
+          return
+        }
+        that.__proto__.__proto__.axios.post("/Register",{'请求操作':'注册','userid':that.userIdReg,'userpsw':that.userPSWReg}).then(function(res){
+          console.log(res)
+          if(res.status==200){
+            that.isRegisterLoading=false;
+            let storage=window.localStorage;
+            storage.setItem('username',res.data);
+            that.$store.commit('login');
+            that.$router.push({path:that.lastRoute.path});
+          }
+        }).catch(function(err){
+          that.$message({
+            'type':'error',
+            'message':err,
+            'duration':'5000',
+            'customClass':'tips'
+          });
+          that.isRegisterLoading=false;
+        })
+      },
 		  Login(){
 		    let that = this;
 		    that.isLoginLoading=true;
@@ -83,24 +124,34 @@
 		      that.$message({
             'type':'error',
             'message':'请输入账号',
-            'duration':'50000',
+            'duration':'5000',
             'customClass':'tips'
           });
           that.isLoginLoading=false;
 		      return
 		    }
         that.__proto__.__proto__.axios.post("/Login",{'请求操作':'登陆','userid':that.userId,'userpsw':that.userPSW}).then(function(res){
-          if(typeof(res.data)=='object'&&res.status==200){
-            that.floorName=res.data;
+          console.log(res)
+          if(res.status==200){
             that.isLoginLoading=false;
+            let storage=window.localStorage;
+            storage.setItem('username',res.data);
+            that.$store.commit('login');
+            that.$router.push({path:that.lastRoute.path});
           }
         }).catch(function(err){
+          that.$message({
+            'type':'error',
+            'message':err,
+            'duration':'5000',
+            'customClass':'tips'
+          });
           that.isLoginLoading=false;
         })
       },
       toggleType(){
-        let that = this
-        this.btnData=''
+        let that = this;
+        this.btnData='';
         if(this.flagOfRegOrLog=='log'){
           this.flagOfRegOrLog='reg';
           setTimeout(function () {
@@ -119,7 +170,7 @@
 
 <style scoped="scoped" lang="scss">
   /deep/ .inp input{
-    height: 60px!important;
+    height: 50px!important;
     font-size: 18px;
     letter-spacing:2px
   }
@@ -211,7 +262,7 @@
           height: 50px;
           line-height: 50px;
           font-size: 24px;
-          margin-top: 35%;
+          margin-top: 25%;
           text-align: left;
           margin-bottom: 20px;
         }
@@ -232,7 +283,7 @@
           height: 50px;
           line-height: 50px;
           font-size: 24px;
-          margin-top: 35%;
+          margin-top: 25%;
           text-align: left;
           margin-bottom: 20px;
         }

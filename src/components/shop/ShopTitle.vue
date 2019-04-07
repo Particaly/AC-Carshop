@@ -6,8 +6,11 @@
 				<div class="phone">手机逛商城</div>
 			</div>
 			<div class="right">
-				<div class="welcome" v-if="islogin">欢迎您，</div>
-				<div class="hello" v-else="islogin">您好，<router-link to='/login'>请登录</router-link> <router-link to='/register'>注册</router-link></div>
+				<div class="welcome" v-if="islogin">欢迎您，{{username}}</div>
+				<div class="hello" v-else="islogin">
+          您好，<router-link to='/login'>请登录</router-link>
+          <router-link to='/login?reg'>注册</router-link>
+        </div>
 				<div class="club"><router-link to='club'>我的商城</router-link></div>
 			</div>
 		</div>
@@ -27,7 +30,10 @@
 		computed : {
 			islogin:function(){
 				return this.$store.state.isLogin
-			}
+			},
+			username:function () {
+        return window.localStorage.getItem("username");
+      }
 		}
 	}
 </script>
