@@ -21,7 +21,9 @@
 	export default {
 		name:'shoptitle',
 		mounted (){
-			
+      if(window.localStorage.getItem('username')){
+        this.$store.commit('login');
+      }
 		},
 		data:function(){
 			return {
@@ -29,6 +31,7 @@
 		},
 		computed : {
 			islogin:function(){
+
 				return this.$store.state.isLogin
 			},
 			username:function () {

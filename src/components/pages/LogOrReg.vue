@@ -24,7 +24,7 @@
               <div class="box-title">快速注册</div>
               <el-input v-model="userIdReg" class="inp" placeholder="请输入手机号"></el-input>
               <el-input v-model="userPSWReg" style="margin-top: 20px" class="inp" placeholder="请输入密码" show-password=""></el-input>
-              <el-button @click="Register" :loading="isRegisterLoading" type="primary" style="width: 100%;height: 60px;margin-top: 20px;font-size: 18px;letter-spacing:2px">立即注册</el-button>
+              <el-button @click="Register" :loading="isRegisterLoading" :disabled="userPSWReg.length<6" type="primary" style="width: 100%;height: 60px;margin-top: 20px;font-size: 18px;letter-spacing:2px">立即注册</el-button>
               <div class="otherLoginType">
                 <div class="loginByQQ"></div>
                 <div class="loginByWX"></div>
@@ -63,14 +63,14 @@
 		name:"logandreg",
     data:function () {
       return{
-        btnData:"还没有账号？去注册！",
-        flagOfRegOrLog:'log',
-        userId:'',
-        userPSW:'',
-        userIdReg:'',
-        userPSWReg:'',
-        isLoginLoading:false,
-        isRegisterLoading:false
+        btnData:"还没有账号？去注册！",//按钮内容
+        flagOfRegOrLog:'log',//页面flag
+        userId:'',//用户名
+        userPSW:'',//密码
+        userIdReg:'',//注册用户名
+        userPSWReg:'',//注册密码
+        isLoginLoading:false,//登陆等待
+        isRegisterLoading:false//注册等待
       }
     },
     mounted(){
@@ -88,7 +88,8 @@
       Register(){
         let that = this;
         that.isRegisterLoading=true;
-        if(!that.userId){
+        //确认id不为空
+        if(!that.userIdReg){
           that.$message({
             'type':'error',
             'message':'请输入账号',
@@ -99,15 +100,25 @@
           return
         }
         that.__proto__.__proto__.axios.post("/Register",{'请求操作':'注册','userid':that.userIdReg,'userpsw':that.userPSWReg}).then(function(res){
-          console.log(res)
           if(res.status==200){
+            //确认成功注册，保存内容到本地
             that.isRegisterLoading=false;
             let storage=window.localStorage;
             storage.setItem('username',res.data);
             that.$store.commit('login');
             that.$router.push({path:that.lastRoute.path});
+          }else{
+            //其他意外情况，输出提示信息
+            that.$message({
+              'type':'error',
+              'message':res.data,
+              'duration':'5000',
+              'customClass':'tips'
+            });
+            that.isRegisterLoading=false;
           }
         }).catch(function(err){
+          //网络错误
           that.$message({
             'type':'error',
             'message':err,
@@ -131,13 +142,20 @@
 		      return
 		    }
         that.__proto__.__proto__.axios.post("/Login",{'请求操作':'登陆','userid':that.userId,'userpsw':that.userPSW}).then(function(res){
-          console.log(res)
           if(res.status==200){
             that.isLoginLoading=false;
             let storage=window.localStorage;
             storage.setItem('username',res.data);
             that.$store.commit('login');
             that.$router.push({path:that.lastRoute.path});
+          }else{
+            that.$message({
+              'type':'error',
+              'message':res.data,
+              'duration':'5000',
+              'customClass':'tips'
+            });
+            that.isRegisterLoading=false;
           }
         }).catch(function(err){
           that.$message({
@@ -317,7 +335,7 @@
         animation: ani-mask 1s ease-in-out;
       }
       .login{
-        left: 0%;
+        left: 0;
         animation: ani-mask-back 1s ease-in-out;
       }
     }
